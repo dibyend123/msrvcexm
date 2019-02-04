@@ -1,8 +1,0 @@
-com/example/microservice/clients/OrgDiscoveryClient.class
-com/example/microservice/config/ServiceConfig.class
-com/example/microservice/Application.class
-com/example/microservice/controller/LicenseServiceController.class
-com/example/microservice/services/LicenseService.class
-com/example/microservice/reposiroy/LicenseRepository.class
-com/example/microservice/model/Organization.class
-com/example/microservice/model/License.class
