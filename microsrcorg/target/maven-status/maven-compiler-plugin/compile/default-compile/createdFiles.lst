@@ -1,0 +1,5 @@
+com/example/microservice/repository/OrganizationRepository.class
+com/example/microservice/service/OrganizationService.class
+com/example/microservice/Application.class
+com/example/microservice/controller/OrganizationServiceController.class
+com/example/microservice/model/Organization.class
