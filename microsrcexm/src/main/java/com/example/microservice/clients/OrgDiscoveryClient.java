@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.example.microservice.model.Organization;
 import java.util.List;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
 
 @Component
 public class OrgDiscoveryClient{
@@ -18,12 +20,14 @@ public class OrgDiscoveryClient{
 
 	 public Organization getOrganization(String organizationId) {
 
+RestTemplate restTemplate = new RestTemplate();
+
 		System.out.println("aa");
 
-		List<ServiceInstance> instances = discoveryClient.getInstances("MICROCONSRV");
+		List<ServiceInstance> instances = discoveryClient.getInstances("microsrcorg");
 		List<String> aa =  discoveryClient.getServices();
 
-		System.out.println("aa"+aa.size()); 
+		System.out.println("aa"+aa.size()+"aaa = "+aa.get(0)); 
 
 		
 		if (instances.size()==0) return null;
@@ -34,7 +38,13 @@ public class OrgDiscoveryClient{
 		System.out.println("serviceUrl = "+serviceUri);
 		
 		
-		return null;
+		ResponseEntity< Organization > restExchange =
+                restTemplate.exchange(
+                        serviceUri,
+                        HttpMethod.GET,
+                        null, Organization.class, organizationId);
+
+		return restExchange.getBody();
 	 }
 	
 }

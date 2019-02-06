@@ -1,6 +1,6 @@
 spring:
   application:
-    name: microconsrv
+    name: microsrcorg
   profiles:
     active:
       default

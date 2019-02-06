@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.microservice.model.Organization;
 import com.example.microservice.clients.OrgDiscoveryClient;
+import com.example.microservice.clients.OrgRestTemplateClient;
+//import com.example.microservice.clients.OrganizationFeignClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,12 @@ public class LicenseService {
 
     @Autowired
     OrgDiscoveryClient odc;
+
+    @Autowired
+    OrgRestTemplateClient orc;
+
+	//@Autowired
+	//OrganizationFeignClient ofc;
 
     public License getLicense(String organizationId,String licenseId) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
@@ -44,6 +52,12 @@ public class LicenseService {
 		if(clienttype.equals("od")){
 			od = odc.getOrganization(orgId);
 		}
+		if(clienttype.equals("or")){
+			od = orc.getOrganization(orgId);
+		}
+		/*if(clienttype.equals("fc")){
+			od = ofc.getOrganization(orgId);
+		}*/
 
 		return od;	
 	}
