@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: microzuul
-  profiles:
-    active:
-      default
-  cloud:
-    config:
-      uri: http://localhost:8888
