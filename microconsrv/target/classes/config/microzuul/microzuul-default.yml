@@ -1,0 +1,3 @@
+zuul.prefix:  /api
+zuul.routes.microsrcorg: /orgsrvc/**
+

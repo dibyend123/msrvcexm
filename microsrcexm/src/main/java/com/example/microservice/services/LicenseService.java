@@ -9,6 +9,8 @@ import com.example.microservice.model.Organization;
 import com.example.microservice.clients.OrgDiscoveryClient;
 import com.example.microservice.clients.OrgRestTemplateClient;
 //import com.example.microservice.clients.OrganizationFeignClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +38,11 @@ public class LicenseService {
         return license.withComment(config.getExampleProperty());
     }
 
+    @HystrixCommand(fallbackMethod = "getLicenseithClientHC",
+	commandProperties={@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="10000")})	
     public License getLicenseithClient(String organizationId,String licenseId,String Client) {
+
+	
 	System.out.println("The Discovery client required = "+Client);	
 	
 		Organization o = getOrgByClient(organizationId,Client);
@@ -45,9 +51,32 @@ public class LicenseService {
 
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
         return license.withComment(config.getExampleProperty());
+    }
+
+   private License getLicenseithClientHC(String organizationId,String licenseId,String Client) {
+		System.out.println("Inside the Hystrix callback function");
+
+	
+	License l = new License();
+	l.setLicenseMax(10);
+	l.setLicenseAllocated(20);
+	l.setLicenseId("aaa");
+		
+        return l.withComment(config.getExampleProperty());
     }	
 
+	private void sleep(){
+		try {
+		    Thread.sleep(10000);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	}
+
 	private Organization getOrgByClient(String orgId,String clienttype){
+
+		//sleep();
+
 		Organization od = null;
 		if(clienttype.equals("od")){
 			od = odc.getOrganization(orgId);
