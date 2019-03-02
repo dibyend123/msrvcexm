@@ -24,7 +24,7 @@ RestTemplate restTemplate = new RestTemplate();
 
 		System.out.println("aa");
 
-		List<ServiceInstance> instances = discoveryClient.getInstances("microsrcorg");
+		List<ServiceInstance> instances = discoveryClient.getInstances("MICROZUUL");
 		List<String> aa =  discoveryClient.getServices();
 
 		System.out.println("aa"+aa.size()+"aaa = "+aa.get(0)); 
@@ -33,7 +33,7 @@ RestTemplate restTemplate = new RestTemplate();
 		if (instances.size()==0) return null;
 
 		
-		String serviceUri = String.format("%s/v1/organizations/%s",instances.get(0).getUri().toString(), organizationId);
+		String serviceUri = String.format("%s/api/microsrcorg/v1/organizations/%s",instances.get(0).getUri().toString(), organizationId);
 
 		System.out.println("serviceUrl = "+serviceUri);
 		

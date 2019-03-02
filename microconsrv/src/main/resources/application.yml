@@ -10,5 +10,7 @@ spring:
         searchLocations: file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microsrcexm,
                          file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microconsrv,
                          file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microsrcorg,
-                         file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microzuul	
+                         file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microzuul,
+                         file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/microsrcorgnew,
+                         file:///home/smayan/projects/mcrsrvcexm/microconsrv/src/main/resources/config/specialrouteservice	
 

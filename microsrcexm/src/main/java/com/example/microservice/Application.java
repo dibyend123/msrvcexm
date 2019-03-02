@@ -8,15 +8,16 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.web.client.RestTemplate;
-//import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import java.util.Collections;
 import java.util.List;
 import com.example.microservice.utils.*;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableCircuitBreaker
+//@EnableDiscoveryClient
+//@EnableEurekaClient
+//@EnableCircuitBreaker
 //@EnableFeignClients
 public class Application{
 
@@ -24,6 +25,7 @@ public class Application{
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){
+	System.out.println("Inside the getRestTemplate Class ");
         RestTemplate template = new RestTemplate();
         List interceptors = template.getInterceptors();
         if (interceptors==null){

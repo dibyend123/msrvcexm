@@ -11,9 +11,10 @@ import com.example.microservice.model.Organization;
 public class OrgRestTemplateClient{
 
 @Autowired
-    RestTemplate restTemplate;
+RestTemplate restTemplate;
 
     public Organization getOrganization(String organizationId){
+		System.out.println("Inside the getOrganization of the restTemplate"+restTemplate);
         ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
                         "http://microsrcorg/v1/organizations/{organizationId}",

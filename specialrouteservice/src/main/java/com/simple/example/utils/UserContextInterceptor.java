@@ -1,5 +1,4 @@
-
-package com.example.microservice.utils;
+package com.simple.example.utils;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -15,7 +14,7 @@ public class UserContextInterceptor implements ClientHttpRequestInterceptor{
 	public ClientHttpResponse intercept(
             HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
             throws IOException {
-		System.out.println("Inside the UserContextInterceptor class");
+
         	HttpHeaders headers = request.getHeaders();
         	headers.add(UserContext.CORRELATION_ID, UserContextHolder.getContext().getCorrelationId());
         	headers.add(UserContext.AUTH_TOKEN, UserContextHolder.getContext().getAuthToken());
