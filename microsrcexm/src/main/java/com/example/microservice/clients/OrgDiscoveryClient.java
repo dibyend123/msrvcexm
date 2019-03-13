@@ -18,9 +18,12 @@ public class OrgDiscoveryClient{
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
+@Autowired
+RestTemplate restTemplate;
+
 	 public Organization getOrganization(String organizationId) {
 
-RestTemplate restTemplate = new RestTemplate();
+//RestTemplate restTemplate = new RestTemplate();
 
 		System.out.println("aa");
 

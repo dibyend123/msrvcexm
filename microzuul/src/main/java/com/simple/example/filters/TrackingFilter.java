@@ -43,12 +43,14 @@ public class TrackingFilter extends ZuulFilter{
 
        public Object run() {
 
+		String crid = generateCorrelationId();
         	if (isCorrelationIdPresent()) {
 			System.out.println("The Correlation id is already present = "+filterUtils.getCorrelationId());                     
                 }
                 else{
                        System.out.println("The Correlation id is not present"); 
-		       filterUtils.setCorrelationId(generateCorrelationId());
+		       System.out.println("The Correlation which is going to be used = "+crid);	
+		       filterUtils.setCorrelationId(crid);
                        
                 }
 
