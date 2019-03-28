@@ -1,5 +1,6 @@
 zuul.prefix:  /api
 zuul.routes.microsrcorg: /orgsrvc/**
+zuul.sensitiveHeaders: Cookie,Set-Cookie
 tracer.property: "I AM THE DEV"
 spring.jpa.database: "MYSQL"
 spring.datasource.platform:  "mysql"

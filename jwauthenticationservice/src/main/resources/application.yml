@@ -1,9 +1,5 @@
-security:
-  oauth2:
-    resource:
-      userInfoUri: http://localhost:8044/user
 server:
-  port: 8001
+  port: 8044
 eureka:
   instance:
     preferIpAddress: true
@@ -12,3 +8,5 @@ eureka:
     fetchRegistry: true
     serviceUrl:
      defaultZone: http://localhost:8761/eureka/
+
+

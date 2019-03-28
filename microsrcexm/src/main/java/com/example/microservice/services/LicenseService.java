@@ -35,7 +35,7 @@ public class LicenseService {
 
     public License getLicense(String organizationId,String licenseId) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-        return license.withComment(config.getExampleProperty());
+        return license.withComment(config.getJwtSigningKey());
     }
 
     @HystrixCommand(fallbackMethod = "getLicenseithClientHC",
@@ -50,7 +50,7 @@ public class LicenseService {
 		System.out.println("id = "+o.getName());
 
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-        return license.withComment(config.getExampleProperty());
+        return license.withComment(config.getJwtSigningKey());
     }
 
    private License getLicenseithClientHC(String organizationId,String licenseId,String Client) {
@@ -62,7 +62,7 @@ public class LicenseService {
 	l.setLicenseAllocated(20);
 	l.setLicenseId("aaa");
 		
-        return l.withComment(config.getExampleProperty());
+        return l.withComment(config.getJwtSigningKey());
     }	
 
 	private void sleep(){

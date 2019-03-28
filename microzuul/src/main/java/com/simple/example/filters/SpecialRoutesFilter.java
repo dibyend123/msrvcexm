@@ -83,7 +83,7 @@ public class SpecialRoutesFilter extends ZuulFilter{
 	RequestContext ctx = RequestContext.getCurrentContext();
 
 	AbTestingRoute ar = new AbTestingRoute();
-	ar = getAbRoutingInfo(filterUtils.getServiceId());
+	//ar = getAbRoutingInfo(filterUtils.getServiceId());
 
 	System.out.println("Service id "+filterUtils.getServiceId());
 	System.out.println(ar);
@@ -100,13 +100,13 @@ public class SpecialRoutesFilter extends ZuulFilter{
 
 	//RequestContext ctx = RequestContext.getCurrentContext();
 
-	if(ar!=null && useSpecialRoute(ar) ){
+	/*if(ar!=null && useSpecialRoute(ar) ){
 		System.out.println(" Request Forwarding is required ");
 		String route = buildRouteString(ctx.getRequest().getRequestURI(), ar.getEndpoint(),ctx.get("serviceId").toString());
 
 		System.out.println("route = "+route);
 		forwardToSpecialRoute(route);
-	}
+	}*/
 
         return null;
 	}

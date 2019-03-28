@@ -1,3 +1,7 @@
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8044/user
 server:
   port: 8002
 eureka:
