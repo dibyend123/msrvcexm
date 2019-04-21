@@ -3,18 +3,21 @@ package com.example.microservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+//import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.context.annotation.Bean;
 import javax.servlet.Filter;
 //import com.thoughtmechanix.organization.utils.UserContextFilter;
 import com.example.microservice.utils.UserContextFilter;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 
 
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient
 @EnableResourceServer
+@EnableBinding(Source.class)
 public class Application{
 
 	@Bean

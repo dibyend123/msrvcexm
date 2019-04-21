@@ -4,6 +4,8 @@ import com.netflix.zuul.ZuulFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 @Component
 public class TrackingFilter extends ZuulFilter{
@@ -41,6 +43,25 @@ public class TrackingFilter extends ZuulFilter{
 		return java.util.UUID.randomUUID().toString();
 	}
 
+	private String getOrganizationId(){
+
+		String result="";
+		if (filterUtils.getAuthToken()!=null){
+
+		    String authToken = filterUtils.getAuthToken().replace("Bearer ","");
+		    try {
+		        Claims claims = Jwts.parser()
+		                .setSigningKey("345345fsdfsf5345".getBytes("UTF-8"))
+		                .parseClaimsJws(authToken).getBody();
+		        result = (String) claims.get("organizationId");
+		    }
+		    catch (Exception e){
+		        e.printStackTrace();
+		    }
+		}
+		return result;
+}
+
        public Object run() {
 
 		String crid = generateCorrelationId();
@@ -56,6 +77,7 @@ public class TrackingFilter extends ZuulFilter{
 
                 RequestContext ctx = RequestContext.getCurrentContext();
 		System.out.println("Processing incoming request for {} = "+  ctx.getRequest().getRequestURI());
+		System.out.println("The Organisationid = "+getOrganizationId());   
                 return null;
        }
 	

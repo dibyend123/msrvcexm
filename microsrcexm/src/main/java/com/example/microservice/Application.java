@@ -8,8 +8,9 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+//import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import java.util.Collections;
 import java.util.List;
 import com.example.microservice.utils.*;
@@ -25,14 +26,26 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.client.resource.BaseOAuth2ProtectedResourceDetails;
 
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
+import com.example.microservice.events.model.OrganizationChangeModel;
+import com.example.microservice.config.ServiceConfig;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @SpringBootApplication
 //@EnableDiscoveryClient
 //@EnableEurekaClient
 //@EnableCircuitBreaker;
 //@EnableFeignClients
+@EnableBinding(Sink.class)
 @EnableResourceServer
 public class Application{
+
+    @Autowired
+    private ServiceConfig serviceConfig;
 
 	@Bean
         public Filter userContextFilter() {
@@ -79,7 +92,27 @@ public OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails() {
 
         return template;
    }
+
+    @Bean
+    public JedisConnectionFactory jedisConnectionFactory() {
+        JedisConnectionFactory jedisConnFactory = new JedisConnectionFactory();
+        jedisConnFactory.setHostName( serviceConfig.getRedisServer());
+        jedisConnFactory.setPort( serviceConfig.getRedisPort() );
+        return jedisConnFactory;
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        return template;
+   }
 	
+  @StreamListener(Sink.INPUT)
+   public void loggerSink(OrganizationChangeModel orgChange) {
+	System.out.println("Received an event for organization id {}"+ orgChange.getOrganizationId());
+      // logger.debug("Received an event for organization id {}", orgChange.getOrganizationId());
+   }
 
 public static void main(String[] args) {
         	SpringApplication.run(Application.class, args);

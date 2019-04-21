@@ -1,6 +1,8 @@
 package com.example.microservice.model;
 
-public class Organization {
+import java.io.Serializable;
+
+public class Organization implements Serializable  {
     String id;
     String name;
     String contactName;
